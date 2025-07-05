@@ -1,1 +1,1 @@
-# shop-managment
+# shop-managment system
