@@ -1,0 +1,108 @@
+
+        #app {
+            display: none; 
+        }
+
+        .scroll {
+            width: 600px;
+            padding-left: 332px;
+            padding-right: 3000%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #009688;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px;
+        }
+
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        #inputDate, #inputVehicle {
+            border: none;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 5px;
+        }
+
+        .button-34 {
+            background: white;
+            border-radius: 999px;
+            box-shadow: black 0 10px 20px -10px;
+            box-sizing: border-box;
+            color: black;
+            cursor: pointer;
+            font-family: Inter, Helvetica, "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols, -apple-system, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+            opacity: 1;
+            outline: 0 solid transparent;
+            padding: 8px 18px;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            width: fit-content;
+            word-break: break-word;
+            border: 0;
+        }
+
+        body { 
+            background: #009688;
+            overflow-x: hidden;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .loop-wrapper {
+            margin: 0 auto;
+            position: relative;
+            display: block;
+            width: 600px;
+            height: 250px;
+            overflow: hidden;
+            border-bottom: 3px solid #fff;
+            color: #fff;
+        }
+
+        button {
+            background: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #f0f0f0;
+        }
+
+        #result, #output {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            color: black;
+        }
+   

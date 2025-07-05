@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Shop Voucher Management System</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<div style="text-align: center;" id="login">
+    <h1 id="l">Login</h1>
+    <input type="password" id="passwordInput" placeholder="Enter password"> <br> <br>
+    <div class="scroll">
+        <h2><marquee behavior="scroll" direction="left" scrollamount="5">we sell people's dreams...We believe in service not words</marquee></h2>
+    </div>
+    <button class="button-34" style="margin-top: 10px;" onclick="checkPassword()">Submit</button>
+</div>
+
+<div id="app">
+    <h1 style="text-align: center;">Shop Voucher Management System</h1>
+    
+    <button id="openModalBtn" onclick="startDay()">Start Day</button><br><br>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Please enter the details:</p>    
+            <label for="inputDate">Date (YYYY-MM-DD):</label>
+            <input type="date" id="inputDate" name="inputDate" placeholder="Enter date...">
+            <br>
+            <label for="inputVehicle">Enter product number (1-11):</label>
+            <input type="text" id="inputVehicle" placeholder="Enter product number...">
+            <br>
+            <button onclick="addProducts()">Add Product</button>
+            <button onclick="calculateAmount()">Calculate Amount</button>
+        </div>
+    </div>
+
+    <button onclick="showReport()" style="left: 40px" id="btn">Day's Report</button> 
+    <button onclick="saveReportToFile()">Save Report to File</button> <br> <br>
+    <button onclick="showHistory()" id="history">Entire History</button> <br> <br>
+    <button onclick="searchDay()">Search Specific Day</button><br>
+    
+    <b>........................... <br>
+        <b>1-Fresh Produce</b><br>
+        <b>2-Meat and Fish</b><br>
+        <b>3-Dairy Products<br></b>
+        <b>4-Cooking Essentials<br></b>
+        <b>5-Beverages <br></b>
+        <b>6-Personal Care Items <br></b>
+        <b>7-Home Care Products <br></b>
+        <b>8-Baby Care <br></b>
+        <b>9-Pet Care<br></b>
+        <b>10-Apparel <br></b>
+        <b>11-Home Décor <br></b>
+        ...........................</b>
+
+    <div id="output" style="display: none;"></div>
+
+    <div id="result" style="display: none;">
+        <p id="result1"></p>
+        <p id="result2"></p>
+        <p id="result3"></p>
+        <p id="result4"></p>
+        <p id="result5"></p>
+        <p id="result6"></p>
+        <p id="result7"></p>
+        <p id="result8"></p>
+        <p id="result9"></p>
+        <p id="result10"></p>
+        <p id="result11"></p>
+        <p id="tt"></p>
+    </div>
+</div>
+
+<script>
+function checkPassword() {
+    var password = document.getElementById("passwordInput").value;
+
+    if (password === "223311166") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("app").style.display = "block";
+        alert("Now you can access the Menu bar.");
+    } else {
+        alert("Wrong attempt !!\n Try again....");
+    }
+}
+
+// Initialize variables properly
+var freshProduct = 0, meatAndFish = 0, dairyProduct = 0, cookingEssentials = 0, beverages = 0;
+var personalCareItems = 0, homeCareProduct = 0, babyCare = 0, petCare = 0, apparel = 0, homeDecorators = 0;
+var totalProducts = 0;
+var ArrTotalProducts = [];
+var total = 0;
+var ArrTotal = [];
+var date = [];
+
+// Product prices
+var freshProductPrice = 50.00;
+var meatAndFishPrice = 550.00;
+var dairyProductPrice = 600.00;
+var cookingEssentialsPrice = 750.00;
+var beveragesPrice = 1000.00;
+var personalCareItemsPrice = 1000.00;
+var homeCareProductPrice = 1250.00;
+var babyCarePrice = 2000.00;
+var petCarePrice = 3000.00;
+var apparelPrice = 4000.00;
+var homeDecoratorsPrice = 1600.00;
+var totalForDay = 0;
+
+function startDay() {
+    document.getElementById('myModal').style.display = 'block';
+    
+    // Reset counters for new day
+    freshProduct = meatAndFish = dairyProduct = cookingEssentials = beverages = 0;
+    personalCareItems = homeCareProduct = babyCare = petCare = apparel = homeDecorators = 0;
+    totalProducts = 0;
+    totalForDay = 0;
+}
+
+function closeModal() {
+    document.getElementById('myModal').style.display = 'none';
+}
+
+function addProducts() {
+    var inputVehicle = document.getElementById('inputVehicle').value;
+    
+    if (inputVehicle === '0') {
+        closeModal();
+        return;
+    } 
+    
+    var productNum = parseInt(inputVehicle);
+    
+    if (productNum >= 1 && productNum <= 11) {
+        switch (productNum) {
+            case 1:
+                freshProduct++;
+                totalForDay += freshProductPrice;
+                break;
+            case 2:
+                meatAndFish++;
+                totalForDay += meatAndFishPrice;
+                break;
+            case 3:
+                dairyProduct++;
+                totalForDay += dairyProductPrice;
+                break;
+            case 4:
+                cookingEssentials++;
+                totalForDay += cookingEssentialsPrice;
+                break;
+            case 5:
+                beverages++;
+                totalForDay += beveragesPrice;
+                break;
+            case 6:
+                personalCareItems++;
+                totalForDay += personalCareItemsPrice;
+                break;
+            case 7:
+                homeCareProduct++;
+                totalForDay += homeCareProductPrice;
+                break;
+            case 8:
+                babyCare++;
+                totalForDay += babyCarePrice;
+                break;
+            case 9:
+                petCare++;
+                totalForDay += petCarePrice;
+                break;
+            case 10:
+                apparel++;
+                totalForDay += apparelPrice;
+                break;
+            case 11:
+                homeDecorators++;
+                totalForDay += homeDecoratorsPrice;
+                break;
+        }
+        
+        totalProducts = freshProduct + meatAndFish + dairyProduct + cookingEssentials + beverages + 
+                       personalCareItems + homeCareProduct + babyCare + petCare + apparel + homeDecorators;
+        
+        document.getElementById('inputVehicle').value = '';
+        alert(`Product added! Current total: ${totalProducts} products, Amount: ${totalForDay} TAKA`);
+    } else {
+        alert("Invalid product number. Please enter a number between 1 and 11.");
+    }
+}
+
+function calculateAmount() {
+    var inputDate = document.getElementById('inputDate').value;
+    if (inputDate === '') {
+        alert('Please enter a valid date.');
+        return;
+    }
+
+    date.push(inputDate);
+    ArrTotal.push(totalForDay);
+    ArrTotalProducts.push(totalProducts);
+    
+    updateDayReport();
+    closeModal();
+    alert(`Day completed! Total products: ${totalProducts}, Total amount: ${totalForDay} TAKA`);
+}
+
+function updateDayReport() {
+    document.getElementById("result1").textContent = `Fresh products: ${freshProduct} (${freshProduct * freshProductPrice} TAKA)`;
+    document.getElementById("result2").textContent = `Meat and fish: ${meatAndFish} (${meatAndFish * meatAndFishPrice} TAKA)`;
+    document.getElementById("result3").textContent = `Dairy products: ${dairyProduct} (${dairyProduct * dairyProductPrice} TAKA)`;
+    document.getElementById("result4").textContent = `Cooking essentials: ${cookingEssentials} (${cookingEssentials * cookingEssentialsPrice} TAKA)`;
+    document.getElementById("result5").textContent = `Beverages: ${beverages} (${beverages * beveragesPrice} TAKA)`;
+    document.getElementById("result6").textContent = `Personal care items: ${personalCareItems} (${personalCareItems * personalCareItemsPrice} TAKA)`;
+    document.getElementById("result7").textContent = `Home care products: ${homeCareProduct} (${homeCareProduct * homeCareProductPrice} TAKA)`;
+    document.getElementById("result8").textContent = `Baby care: ${babyCare} (${babyCare * babyCarePrice} TAKA)`;
+    document.getElementById("result9").textContent = `Pet care: ${petCare} (${petCare * petCarePrice} TAKA)`;
+    document.getElementById("result10").textContent = `Apparel: ${apparel} (${apparel * apparelPrice} TAKA)`;
+    document.getElementById("result11").textContent = `Home decorators: ${homeDecorators} (${homeDecorators * homeDecoratorsPrice} TAKA)`;
+    document.getElementById("tt").textContent = `Total amount of the day: ${totalForDay} TAKA`;
+}
+
+function showReport() {
+    const resultDiv = document.getElementById('result');
+    const historyDiv = document.getElementById('output');
+    
+    if (resultDiv.style.display === 'none') {
+        resultDiv.style.display = 'block';
+        historyDiv.style.display = 'none';
+    } else {
+        resultDiv.style.display = 'none';
+    }
+}
+
+function saveReportToFile() {
+    if (date.length === 0) {
+        alert("No data to save!");
+        return;
+    }
+    
+    var lastDate = date[date.length - 1];
+    const reportText = generateReportText(lastDate);
+
+    if (reportText) {
+        const blob = new Blob([reportText], { type: 'text/plain' });
+        const fileName = `shop_report_${lastDate}.txt`;
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = fileName;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+}
+
+function generateReportText(lastDate) {
+    const reportLines = [];
+    reportLines.push(`Date: ${lastDate}`);
+    reportLines.push('Day Report:');
+    reportLines.push(''); // Empty line for better formatting
+    
+    // Only include products with quantity > 0
+    if (freshProduct > 0) {
+        reportLines.push(`Fresh products: ${freshProduct} (${freshProduct * freshProductPrice} TAKA)`);
+    }
+    if (meatAndFish > 0) {
+        reportLines.push(`Meat and fish: ${meatAndFish} (${meatAndFish * meatAndFishPrice} TAKA)`);
+    }
+    if (dairyProduct > 0) {
+        reportLines.push(`Dairy products: ${dairyProduct} (${dairyProduct * dairyProductPrice} TAKA)`);
+    }
+    if (cookingEssentials > 0) {
+        reportLines.push(`Cooking essentials: ${cookingEssentials} (${cookingEssentials * cookingEssentialsPrice} TAKA)`);
+    }
+    if (beverages > 0) {
+        reportLines.push(`Beverages: ${beverages} (${beverages * beveragesPrice} TAKA)`);
+    }
+    if (personalCareItems > 0) {
+        reportLines.push(`Personal care items: ${personalCareItems} (${personalCareItems * personalCareItemsPrice} TAKA)`);
+    }
+    if (homeCareProduct > 0) {
+        reportLines.push(`Home care products: ${homeCareProduct} (${homeCareProduct * homeCareProductPrice} TAKA)`);
+    }
+    if (babyCare > 0) {
+        reportLines.push(`Baby care: ${babyCare} (${babyCare * babyCarePrice} TAKA)`);
+    }
+    if (petCare > 0) {
+        reportLines.push(`Pet care: ${petCare} (${petCare * petCarePrice} TAKA)`);
+    }
+    if (apparel > 0) {
+        reportLines.push(`Apparel: ${apparel} (${apparel * apparelPrice} TAKA)`);
+    }
+    if (homeDecorators > 0) {
+        reportLines.push(`Home decorators: ${homeDecorators} (${homeDecorators * homeDecoratorsPrice} TAKA)`);
+    }
+    
+    reportLines.push(''); // Empty line before total
+    reportLines.push(`Total Products: ${totalProducts}`);
+    reportLines.push(`Total Amount: ${totalForDay} TAKA`);
+
+    return reportLines.join('\n');
+}
+
+function showHistory() {
+    var history = "History\n\n";
+    for (var i = 0; i < date.length; i++) {
+        history += `Date: ${date[i]}, Total products: ${ArrTotalProducts[i]}, Total Amount: ${ArrTotal[i]} TAKA\n`;
+    }
+    
+    if (date.length === 0) {
+        history = "No history available.";
+    }
+    
+    document.getElementById("output").textContent = history;
+    
+    const resultDiv = document.getElementById('result');
+    const historyDiv = document.getElementById('output');
+    
+    if (historyDiv.style.display === 'none') {
+        resultDiv.style.display = 'none';
+        historyDiv.style.display = 'block';
+    } else {
+        historyDiv.style.display = 'none';
+    }
+}
+
+function searchDay() {
+    var searchDate = prompt("Enter the date you want to search (YYYY-MM-DD):");
+    if (!searchDate) return;
+    
+    var found = false;
+    for (var i = 0; i < date.length; i++) {
+        if (date[i] === searchDate) {
+            var result = `Date: ${date[i]}\nTotal Products: ${ArrTotalProducts[i]}\nTotal Amount: ${ArrTotal[i]} TAKA`;
+            document.getElementById("output").textContent = result;
+            document.getElementById('output').style.display = 'block';
+            document.getElementById('result').style.display = 'none';
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        document.getElementById("output").textContent = "Date not found";
+        document.getElementById('output').style.display = 'block';
+        document.getElementById('result').style.display = 'none';
+    }
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    var modal = document.getElementById('myModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+</body>
+</html>
